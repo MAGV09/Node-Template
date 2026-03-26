@@ -1,6 +1,6 @@
 {
   "name": "node-template",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "commonjs",
   "main": "./src/app.js",
   "devDependencies": {
@@ -25,7 +25,9 @@
     "dotenv": "^17.3.1",
     "ejs": "^5.0.1",
     "express": "^5.2.1",
-    "http-errors": "^2.0.1"
+    "express-validator": "^7.3.1",
+    "http-errors": "^2.0.1",
+    "morgan": "^1.10.1"
   },
   "lint-staged": {
     "**/*.{js,ts,jsx,tsx}": [
