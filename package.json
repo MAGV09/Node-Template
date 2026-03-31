@@ -1,6 +1,6 @@
 {
   "name": "node-template",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "commonjs",
   "main": "./src/app.js",
   "devDependencies": {
@@ -16,6 +16,7 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
+    "populate": "node src/db/populatedb.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
@@ -27,7 +28,8 @@
     "express": "^5.2.1",
     "express-validator": "^7.3.1",
     "http-errors": "^2.0.1",
-    "morgan": "^1.10.1"
+    "morgan": "^1.10.1",
+    "pg": "^8.20.0"
   },
   "lint-staged": {
     "**/*.{js,ts,jsx,tsx}": [
