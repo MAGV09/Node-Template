@@ -2,10 +2,11 @@ const express = require('express');
 const app = express();
 const path = require('node:path');
 const morgan = require('morgan');
+const pool = require('./config/pool');
 require('dotenv').config({ quiet: true });
 
 const errorHandler = require('./middleware/errorHandler');
-const indexRouter = require('./routes/indexRouter');
+const indexRouter = require('./routes/index');
 
 app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'ejs');
@@ -22,9 +23,15 @@ app.use('/', indexRouter);
 app.use(errorHandler);
 
 const port = process.env.APP_PORT || 3000;
-app.listen(port, (err) => {
-  if (err) {
-    throw err;
+async function start() {
+  try {
+    await pool.query('SELECT 1');
+    console.log('Connected to DB');
+    app.listen(port, () => console.log(`Listening on ${port}`));
+  } catch (err) {
+    console.error('Failed to connect to DB:', err);
+    process.exit(1);
   }
-  console.log(`listening on ${port} `);
-});
+}
+
+start();
