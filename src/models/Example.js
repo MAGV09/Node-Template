@@ -1,1 +1,1 @@
-const pool = require('../config/pool');
+const pool = require('../config/database');

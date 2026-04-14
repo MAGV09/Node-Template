@@ -1,6 +1,6 @@
 {
   "name": "node-template",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "commonjs",
   "main": "./src/app.js",
   "devDependencies": {
@@ -23,12 +23,17 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "connect-pg-simple": "^10.0.0",
     "dotenv": "^17.3.1",
-    "ejs": "^5.0.1",
+    "ejs": "^5.0.2",
     "express": "^5.2.1",
+    "express-session": "^1.19.0",
     "express-validator": "^7.3.1",
     "http-errors": "^2.0.1",
     "morgan": "^1.10.1",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
     "pg": "^8.20.0"
   },
   "lint-staged": {
