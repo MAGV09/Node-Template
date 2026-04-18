@@ -19,9 +19,9 @@ async function createUser(req, res) {
 }
 
 async function getLoginPage(req, res) {
-  const messages = req.session?.messages ?? [];
+  const errorMessages = req.session?.messages ?? [];
   req.session.messages = []; // clear after reading
-  res.render('login-form', { title: 'Login', authenticationError: messages.at(-1) });
+  res.render('login-form', { title: 'Login', authenticationError: errorMessages.at(-1) });
 }
 
 async function handleLogin(req, res, next) {
