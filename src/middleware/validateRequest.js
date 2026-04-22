@@ -1,7 +1,7 @@
-// middleware/validateRequest.js
 const { validationResult } = require('express-validator');
 
-const validateRequest = (req, res, next) => {
+const validateRequest = (validators) => async (req, res, next) => {
+  await Promise.all(validators.map((validator) => validator.run(req)));
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     res.locals.validationErrors = errors.array();

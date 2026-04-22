@@ -1,8 +1,9 @@
 const pool = require('../config/database');
 const bcrypt = require('bcryptjs');
 const { matchedData } = require('express-validator');
+const passport = require('../config/passport');
 
-async function getSignUpPage(req, res) {
+function getSignUpPage(req, res) {
   res.render('sign-up-form', { title: 'Sign Up' });
 }
 async function createUser(req, res) {
@@ -15,10 +16,10 @@ async function createUser(req, res) {
     username,
     hashedPassword,
   ]);
-  res.redirect('/');
+  res.redirect('/login');
 }
 
-async function getLoginPage(req, res) {
+function getLoginPage(req, res) {
   const errorMessages = req.session?.messages ?? [];
   req.session.messages = []; // clear after reading
   res.render('login-form', { title: 'Login', authenticationError: errorMessages.at(-1) });
@@ -28,6 +29,26 @@ async function handleLogin(req, res, next) {
   if (res.locals.validationErrors) {
     return res.status(400).render('login-form', { title: 'Login' });
   }
-  next();
+  passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureMessage: true,
+  })(req, res, next);
 }
-module.exports = { getSignUpPage, createUser, getLoginPage, handleLogin };
+
+function handleLogout(req, res, next) {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+
+    req.session.destroy((err) => {
+      if (err) {
+        return next(err);
+      }
+      res.clearCookie('connect.sid');
+      res.redirect('/');
+    });
+  });
+}
+module.exports = { getSignUpPage, createUser, getLoginPage, handleLogin, handleLogout };
